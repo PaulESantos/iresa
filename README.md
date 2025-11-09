@@ -510,7 +510,7 @@ citation("iresa")
 ``` bibtex
 @Manual{iresa2025,
   title = {iresa: Índice Regional de Sostenibilidad Ambiental del Perú},
-  author = {{Instituto Peruano de Economía}},
+  author = {{Paul E. Santos Andrade}},
   year = {2025},
   note = {R package version 0.1.0},
   url = {https://github.com/ipe-org/iresa},
@@ -519,20 +519,17 @@ citation("iresa")
 
 ## Recursos Adicionales
 
-- 📊 [Informe completo IRESA 2025](https://www.ipe.org.pe/portal/iresa/)
+- 📊 [Informe completo IRESA
+  2025](https://incore-spaces.nyc3.digitaloceanspaces.com/documents/1762188727_%C3%8Dndice_Regional_de_Sostenibilidad_Ambiental_-_IRESA_2025_1762188727.pdfhttps://www.ipe.org.pe/portal/iresa/)
 - 🗺️ [Visualizador
-  interactivo](https://www.ipe.org.pe/portal/iresa/mapa/)
-- 📖 [Metodología
-  detallada](https://www.ipe.org.pe/portal/iresa/metodologia/)
-- 📈 [Serie histórica
-  completa](https://www.ipe.org.pe/portal/iresa/datos/)
+  interactiov](https://incoreperu.pe/indices/iresa-indice-regional-de-sostenibilidad-ambiental/)
 
 ## Contribuir
 
 Las contribuciones son bienvenidas. Por favor:
 
 1.  **Reportar problemas**: Abre un
-    [issue](https://github.com/ipe-org/iresa/issues) para bugs o
+    [issue](https://github.com/PaulESantos/iresa/issues) para bugs o
     sugerencias
 2.  **Proponer mejoras**: Crea un pull request con tus cambios
 3.  **Ejecutar tests**: Asegúrate de que `devtools::test()` pase sin
@@ -543,7 +540,7 @@ Las contribuciones son bienvenidas. Por favor:
 
 ``` r
 # Clonar repositorio
-# git clone https://github.com/ipe-org/iresa.git
+# git clone https://github.com/PaulESantos/iresa.git
 # cd iresa
 
 # Instalar dependencias de desarrollo
@@ -559,17 +556,7 @@ devtools::document()
 devtools::test()
 ```
 
-## Código de Conducta
-
-Este proyecto se adhiere al [Contributor Covenant Code of
-Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/).
-Al participar, se espera que respetes este código.
-
-## Licencia
-
-MIT © [Instituto Peruano de Economía](https://www.ipe.org.pe)
-
 ------------------------------------------------------------------------
 
 **Desarrollado por:** Paul E. Santos Andrade (<paulefrens@gmail.com>)  
-**Sitio web:** <https://www.ipe.org.pe>
+**Sitio web IPE:** <https://www.ipe.org.pe>
