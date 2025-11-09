@@ -10,20 +10,20 @@ calcular_rankings_completo(data, year = 2025, compare_with_2019 = TRUE)
 \item{data}{Un data frame del IRESA (`calidad_ambiental`, `gobernanza_gestion`
 o `iresa_general`).}
 
-\item{year}{Año para el cual calcular el ranking. Por defecto 2025.}
+\item{year}{anio para el cual calcular el ranking. Por defecto 2025.}
 
-\item{compare_with_2019}{Lógico. Si es TRUE, calcula cambios respecto a 2019.}
+\item{compare_with_2019}{Logico. Si es TRUE, calcula cambios respecto a 2019.}
 }
 \value{
 Un tibble con rankings recalculados para todos los indicadores del dataset.
 }
 \description{
 Aplica `calcular_ranking_indicador()` a todos los indicadores de un dataset
-del IRESA de forma automática, detectando la dirección correcta del ranking.
+del IRESA de forma automatica, detectando la direccion correcta del ranking.
 }
 \details{
-La función detecta automáticamente qué indicadores requieren ranking ascendente
-(valores bajos = mejor) basándose en una lista predefinida de indicadores.
+La funcion detecta automaticamente que indicadores requieren ranking ascendente
+(valores bajos = mejor) basandose en una lista predefinida de indicadores.
 
 Los rankings se recalculan completamente para asegurar consistencia, ignorando
 cualquier columna `rank_*` preexistente en los datos originales.

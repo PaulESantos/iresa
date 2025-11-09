@@ -9,14 +9,14 @@ identificar_empates(data, year = 2025)
 \arguments{
 \item{data}{Un data frame del IRESA con rankings calculados.}
 
-\item{year}{Año del ranking a analizar. Por defecto 2025.}
+\item{year}{anio del ranking a analizar. Por defecto 2025.}
 }
 \value{
 Un tibble con solo las regiones que tienen empates, ordenado por
   grupo e indicador.
 }
 \description{
-Identifica regiones que comparten la misma posición en el ranking después
+Identifica regiones que comparten la misma posicion en el ranking despues
 del recalculo.
 }
 \examples{
@@ -31,7 +31,7 @@ identificar_empates(ranking)
 ranking_ca <- calcular_rankings_completo(calidad_ambiental)
 empates_ca <- identificar_empates(ranking_ca)
 
-# Ver solo empates en un indicador específico
+# Ver solo empates en un indicador especifico
 empates_ca |>
   filter(indicador == "Acceso a agua segura")
 }

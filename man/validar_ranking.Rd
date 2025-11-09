@@ -9,19 +9,19 @@ validar_ranking(data, year = 2025)
 \arguments{
 \item{data}{Un data frame con rankings calculados.}
 
-\item{year}{Año a validar. Por defecto 2025.}
+\item{year}{anio a validar. Por defecto 2025.}
 }
 \value{
 Lista con:
-  - `valido`: Lógico indicando si pasa todas las validaciones
+  - `valido`: Logico indicando si pasa todas las validaciones
   - `errores`: Vector con mensajes de error (si hay problemas)
-  - `detalles`: Tibble con estadísticas del ranking
+  - `detalles`: Tibble con estadisticas del ranking
 }
 \description{
 Verifica que los rankings calculados cumplan con las reglas esperadas:
-- No hay saltos mayores a 1 + número de empates
+- No hay saltos mayores a 1 + numero de empates
 - Empates tienen el mismo score
-- Rankings están en el rango correcto [1, n_regiones]
+- Rankings estan en el rango correcto [1, n_regiones]
 }
 \examples{
 \dontrun{

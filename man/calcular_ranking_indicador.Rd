@@ -15,66 +15,66 @@ calcular_ranking_indicador(
 \item{data}{Un data frame con datos del IRESA. Puede ser `calidad_ambiental`,
 `gobernanza_gestion` o `iresa_general`.}
 
-\item{year}{Año para el cual calcular el ranking. Por defecto 2025.}
+\item{year}{anio para el cual calcular el ranking. Por defecto 2025.}
 
-\item{compare_with_2019}{Lógico. Si es TRUE, calcula cambios respecto a 2019.
+\item{compare_with_2019}{Logico. Si es TRUE, calcula cambios respecto a 2019.
 Por defecto TRUE.}
 
-\item{ascending}{Lógico. Si es TRUE, valores más bajos obtienen mejor ranking
-(posición 1). Si es FALSE, valores más altos obtienen mejor ranking.
+\item{ascending}{Logico. Si es TRUE, valores mas bajos obtienen mejor ranking
+(posicion 1). Si es FALSE, valores mas altos obtienen mejor ranking.
 Por defecto FALSE (valores altos = mejor).}
 }
 \value{
 Un tibble con columnas:
-  - `region`: Nombre de la región
+  - `region`: Nombre de la region
   - `indicador`: Nombre del indicador (si aplica)
-  - `indice_pilar`: Nombre del índice o pilar (si aplica)
-  - `score_{year}`: Puntaje para el año especificado
-  - `rank_{year}`: Ranking recalculado para el año especificado (con empates)
+  - `indice_pilar`: Nombre del indice o pilar (si aplica)
+  - `score_year`: Puntaje para el anio especificado
+  - `rank_year`: Ranking recalculado para el anio especificado (con empates)
   - `score_2019`: Puntaje en 2019 (si compare_with_2019 = TRUE)
   - `rank_2019`: Ranking recalculado para 2019 (si compare_with_2019 = TRUE)
   - `cambio_score`: Diferencia de puntaje (si compare_with_2019 = TRUE)
   - `cambio_rank`: Diferencia de ranking (si compare_with_2019 = TRUE)
-  - `tendencia`: Categoría del cambio (si compare_with_2019 = TRUE)
+  - `tendencia`: Categoria del cambio (si compare_with_2019 = TRUE)
 }
 \description{
 Genera rankings para indicadores del IRESA considerando empates y calculando
-cambios respecto al año base 2019. Los rankings se recalculan para todos los
-años disponibles para asegurar consistencia en el manejo de empates.
+cambios respecto al anio base 2019. Los rankings se recalculan para todos los
+anios disponibles para asegurar consistencia en el manejo de empates.
 }
 \details{
 ## Recalculo de rankings
-La función SIEMPRE recalcula los rankings para todos los años disponibles en
+La funcion SIEMPRE recalcula los rankings para todos los anios disponibles en
 los datos, ignorando cualquier columna `rank_*` preexistente. Esto asegura:
 - Manejo consistente de empates usando `dplyr::min_rank()`
-- Comparaciones válidas entre años
-- Rankings correctos según la dirección especificada (ascending)
+- Comparaciones validas entre anios
+- Rankings correctos segun la direccion especificada (ascending)
 
 ## Manejo de empates
-Se usa `dplyr::min_rank()` que asigna el ranking más bajo a todos los valores
+Se usa `dplyr::min_rank()` que asigna el ranking mas bajo a todos los valores
 empatados. Por ejemplo, si tres regiones empatan en el segundo lugar, todas
-reciben ranking 2, y la siguiente región recibe ranking 5.
+reciben ranking 2, y la siguiente region recibe ranking 5.
 
-## Dirección del ranking
+## Direccion del ranking
 Algunos indicadores requieren rankings invertidos:
 - **Valores altos = mejor** (ascending = FALSE): Tratamiento de aguas,
-  acceso a agua, consumo de energías limpias, áreas verdes, ejecución de gasto
+  acceso a agua, consumo de energias limpias, areas verdes, ejecucion de gasto
 - **Valores bajos = mejor** (ascending = TRUE): Calidad del aire (PM2.5),
-  generación de residuos, degradación de ecosistemas, conflictos, delitos,
+  generacion de residuos, degradacion de ecosistemas, conflictos, delitos,
   agua no facturada, viviendas informales, incendios
 
-## Categorías de tendencia
-- "Mejora significativa": Subió ≥5 posiciones
-- "Mejora": Subió 1-4 posiciones
-- "Estable": Sin cambio de posición
-- "Deterioro": Bajó 1-4 posiciones
-- "Deterioro significativo": Bajó ≥5 posiciones
+## Categorias de tendencia
+- "Mejora significativa": Subio >=5 posiciones
+- "Mejora": Subio 1-4 posiciones
+- "Estable": Sin cambio de posicion
+- "Deterioro": Bajo 1-4 posiciones
+- "Deterioro significativo": Bajo >=5 posiciones
 }
 \examples{
 \dontrun{
 library(dplyr)
 
-# Ranking de Calidad Ambiental para un indicador específico
+# Ranking de Calidad Ambiental para un indicador especifico
 calidad_ambiental |>
   filter(indicador == "Acceso a agua segura") |>
   calcular_ranking_indicador(year = 2025)

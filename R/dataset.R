@@ -262,11 +262,11 @@
 #'
 #' ## Uso con paquetes espaciales
 #' El objeto es compatible con:
-#' - `{sf}`: Manipulación de datos espaciales
-#' - `{ggplot2}` + `{sf}`: Visualización con `geom_sf()`
-#' - `{tmap}`: Mapas temáticos interactivos
-#' - `{leaflet}`: Mapas web interactivos
-#' - `{mapview}`: Exploración rápida de datos espaciales
+#' - `\pkg{sf}`: Manipulación de datos espaciales
+#' - `\pkg{ggplot2}` + `\pkg{sf}`: Visualización con `geom_sf()`
+#' - `\pkg{tmap}`: Mapas temáticos interactivos
+#' - `\pkg{leaflet}`: Mapas web interactivos
+#' - `\pkg{mapview}`: Exploración rápida de datos espaciales
 #'
 #' @source Basado en cartografía oficial
 #'   del Instituto Geográfico Nacional (IGN) del Perú.

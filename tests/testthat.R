@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(inresar)
+library(iresa)
 
-test_check("inresar")
+test_check("iresa")

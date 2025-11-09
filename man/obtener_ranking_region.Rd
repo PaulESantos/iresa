@@ -2,22 +2,22 @@
 % Please edit documentation in R/ranking_iresa.R
 \name{obtener_ranking_region}
 \alias{obtener_ranking_region}
-\title{Obtener Ranking de una Región Específica}
+\title{Obtener Ranking de una Region Especifica}
 \usage{
 obtener_ranking_region(data, region, year = 2025)
 }
 \arguments{
 \item{data}{Un data frame del IRESA con rankings calculados.}
 
-\item{region}{Nombre de la región (ej: "Tacna", "Lima*", "Loreto").}
+\item{region}{Nombre de la region (ej: "Tacna", "Lima*", "Loreto").}
 
-\item{year}{Año del ranking. Por defecto 2025.}
+\item{year}{anio del ranking. Por defecto 2025.}
 }
 \value{
-Un tibble con el ranking de la región especificada.
+Un tibble con el ranking de la region especificada.
 }
 \description{
-Extrae el ranking de una región particular para uno o todos los indicadores.
+Extrae el ranking de una region particular para uno o todos los indicadores.
 }
 \examples{
 \dontrun{
