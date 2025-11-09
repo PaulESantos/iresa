@@ -90,7 +90,7 @@ Mide la capacidad institucional para prevenir, mitigar y responder a riesgos amb
 Puedes instalar la versión en desarrollo desde [GitHub](https://github.com/):
 ```{r install, eval=FALSE}
 # install.packages("pak")
-pak::pak("ipe-org/iresa")
+pak::pak("PaulESantos/iresa")
 ```
 
 ## Inicio Rápido
@@ -204,13 +204,13 @@ calidad_ambiental |>
 ## Visualizaciones
 
 ### Mapa Temático del IRESA 2025
-```{r mapa-iresa, fig.width=10, fig.height=8, eval=FALSE}
+```{r mapa-iresa, fig.width=10, fig.height=8}
 library(sf)
 
 peru_mapa |>
-  left_join(iresa |> select(region, iresa_score_2025), by = "region") |>
+  left_join(iresa_general |> select(region, score_2025), by = "region") |>
   ggplot() +
-  geom_sf(aes(fill = iresa_score_2025), color = "white", size = 0.3) +
+  geom_sf(aes(fill = score_2025), color = "white", size = 0.3) +
   scale_fill_gradient2(
     name = "Puntaje\nIRESA",
     low = "#d73027",
@@ -233,7 +233,7 @@ peru_mapa |>
 ```
 
 ### Comparación de Pilares
-```{r plot-pilares, fig.width=10, fig.height=6, eval=FALSE}
+```{r plot-pilares, fig.width=10, fig.height=6}
 iresa_general |>
   filter(indice_pilar != "IRESA") |>
   select(indice_pilar, region, score_2025) |>
@@ -255,7 +255,7 @@ iresa_general |>
 ```
 
 ### Evolución Temporal de Regiones Seleccionadas
-```{r plot-evolucion, fig.width=10, fig.height=6, eval=FALSE}
+```{r plot-evolucion, fig.width=10, fig.height=6}
 library(tidyr)
 
 regiones_interes <- c("Tacna", "Arequipa", "Lima*", "Loreto", "Madre de Dios")
@@ -273,7 +273,7 @@ iresa_general |>
   ) |>
   mutate(year = as.numeric(gsub("rank_", "", year))) |>
   ggplot(aes(x = year, y = ranking, color = region, group = region)) +
-  geom_line(size = 1.2) +
+  geom_line(linewidth = 1.2) +
   geom_point(size = 3) +
   scale_y_reverse(breaks = seq(1, 25, 5)) +
   scale_x_continuous(breaks = c(2019, 2024, 2025)) +
@@ -295,43 +295,36 @@ iresa_general |>
 
 ## Estructura de Datos
 
-El paquete incluye **5 datasets** complementarios:
+El paquete incluye **4 datasets** complementarios:
 
-### 1. `iresa` - Dataset Completo (25 × 103)
-
-Formato ancho con todos los indicadores, rankings y puntajes para los tres años.
-```{r estructura-iresa, eval=FALSE}
-glimpse(iresa)
-```
-
-### 2. `iresa_general` - Resumen por Índice y Pilares (75 × 8)
+### 1. `iresa_general` - Resumen por Índice y Pilares (75 × 8)
 
 Formato largo para análisis comparativos entre índice general y pilares.
-```{r estructura-general, eval=FALSE}
+```{r estructura-general}
 iresa_general |>
   count(indice_pilar)
 ```
 
-### 3. `calidad_ambiental` - Indicadores de Calidad Ambiental (175 × 8)
+### 2. `calidad_ambiental` - Indicadores de Calidad Ambiental (175 × 8)
 
 Detalle de los 7 indicadores del Pilar I.
-```{r estructura-ca, eval=FALSE}
+```{r estructura-ca}
 calidad_ambiental |>
   count(indicador)
 ```
 
-### 4. `gobernanza_gestion` - Indicadores de Gobernanza (175 × 8)
+### 3. `gobernanza_gestion` - Indicadores de Gobernanza (175 × 8)
 
 Detalle de los 7 indicadores del Pilar II.
-```{r estructura-gg, eval=FALSE}
+```{r estructura-gg}
 gobernanza_gestion |>
   count(indicador)
 ```
 
-### 5. `peru_mapa` - Geometrías Espaciales (25 × 2)
+### 4. `peru_mapa` - Geometrías Espaciales (25 × 2)
 
 Objeto `sf` con polígonos de las regiones para visualizaciones cartográficas.
-```{r estructura-mapa, eval=FALSE}
+```{r estructura-mapa}
 library(sf)
 st_crs(peru_mapa)
 ```
@@ -375,88 +368,7 @@ st_crs(peru_mapa)
 - Solo 30.5% de municipalidades con planes de prevención vigentes
 - 24,950 incendios forestales en 2024 (récord desde 2010)
 
-## Casos de Uso
 
-### Investigación Académica
-```{r caso-investigacion, eval=FALSE}
-# Análisis de correlación entre PBI per cápita y sostenibilidad
-library(corrplot)
-
-datos_analisis <- iresa |>
-  select(region, iresa_score_2025, calidad_ambiental_score_2025,
-         gobernanza_ambiental_score_2025) |>
-  # Agregar PBI per cápita (datos externos)
-  left_join(datos_economicos, by = "region")
-
-cor_matrix <- cor(datos_analisis[, -1], use = "complete.obs")
-corrplot(cor_matrix, method = "color", type = "upper")
-```
-
-### Política Pública
-```{r caso-politica, eval=FALSE}
-# Identificar regiones prioritarias para intervención
-regiones_prioritarias <- calidad_ambiental |>
-  calcular_rankings_completo(year = 2025) |>
-  filter(rank_2025 >= 20) |>  # Últimos 5 lugares
-  group_by(region) |>
-  summarise(
-    n_indicadores_criticos = n(),
-    promedio_score = mean(score_2025, na.rm = TRUE)
-  ) |>
-  arrange(desc(n_indicadores_criticos))
-
-print(regiones_prioritarias)
-```
-
-### Monitoreo y Evaluación
-```{r caso-monitoreo, eval=FALSE}
-# Dashboard de seguimiento regional
-crear_reporte_region <- function(region_nombre) {
-  
-  # Rankings generales
-  general <- obtener_ranking_region(
-    calcular_ranking_indicador(iresa_general |> filter(indice_pilar == "IRESA")),
-    region_nombre
-  )
-  
-  # Detalle por indicador
-  detalle_ca <- obtener_ranking_region(
-    calcular_rankings_completo(calidad_ambiental),
-    region_nombre
-  )
-  
-  detalle_gg <- obtener_ranking_region(
-    calcular_rankings_completo(gobernanza_gestion),
-    region_nombre
-  )
-  
-  list(
-    general = general,
-    calidad_ambiental = detalle_ca,
-    gobernanza = detalle_gg
-  )
-}
-
-# Generar reporte para Loreto
-reporte_loreto <- crear_reporte_region("Loreto")
-```
-
-## Documentación
-
-Para más información, consulta las viñetas incluidas:
-```{r vignettes, eval=FALSE}
-# Guía de inicio rápido
-vignette("iresa-introduccion", package = "iresa")
-
-# Análisis de rankings
-vignette("ranking-indicadores", package = "iresa")
-
-# Visualizaciones espaciales
-vignette("mapas-iresa", package = "iresa")
-
-# Metodología detallada
-vignette("metodologia-iresa", package = "iresa")
-```
 
 ## Citación
 
@@ -523,7 +435,5 @@ MIT © [Instituto Peruano de Economía](https://www.ipe.org.pe)
 
 ---
 
-**Desarrollado por:** Instituto Peruano de Economía (IPE)  
-**Mantenedor:** Paul E. Santos Andrade (paulefrens@gmail.com)  
-**Contacto institucional:** ipe@ipe.org.pe  
+**Desarrollado por:** Paul E. Santos Andrade (paulefrens@gmail.com)   
 **Sitio web:** https://www.ipe.org.pe
