@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# iresa <img src="man/figures/logo.png" align="right" height="139" alt="" />
+# iresa <img src="man/figures/iresa_logo_2.png" align="right" height="250" alt="" />
 
 <!-- badges: start -->
 
